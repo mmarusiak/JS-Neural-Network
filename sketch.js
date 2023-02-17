@@ -1,21 +1,10 @@
-console.log('Sketch loaded...');
-let a = new Matrix(2,3);
-let b = new Matrix(3,2);
-a.Randomize();
-b.Randomize();
+let = brain = new NeuralNetwork(2, 2, 2);
 
-console.table(a.matrix);
-console.table(b.matrix);
+exampleInput = [0,1];
+target = [1, 0];
 
-a.Add(2);
-
-console.table(a.matrix);
-
-c = Matrix.Map(a, DoubleIt);
+brain.Train(exampleInput, target);
+//let guess = brain.Feedforward(exampleInput);
 
 
-function DoubleIt(a){
-    return(a*2);
-}
-
-console.table(c.matrix);
+//console.log(guess)

@@ -35,11 +35,11 @@ class Matrix{
         return result;
     }
 
-    static MatrixFromArray(a){
-        let result = new Matrix(1, a.length());
+    static FromArray(a){
+        let result = new Matrix(a.length, 1);
 
-        for(let i = 0; i < result.length(); i ++){
-            result.matrix[0][i] = a[i];
+        for(let i = 0; i < a.length; i ++){
+            result.matrix[i][0] = a[i];
         }
 
         return result;
@@ -67,7 +67,7 @@ class Matrix{
             return(Matrix.AddNumberToMatrix(a, b));
         }
         else{
-            return (typeof(n) + " is not assignable for Matrix.Add(number/Matrix) argument.");
+            return (typeof(b) + " is not assignable for Matrix.Add(number/Matrix) argument.");
         }
     }
 
@@ -116,7 +116,7 @@ class Matrix{
             return Matrix.MultiplyTwoMatricies(a, b);
         }
         else if(Number.isFinite(b)){
-            Matrix.MultiplyNumberWithMatrix(a, b);
+            return Matrix.MultiplyNumberWithMatrix(a, b);
         }
         else{
             return (typeof(n) + " is not assignable for Matrix.Mutiply(number/Matrix) argument.");
@@ -149,16 +149,16 @@ class Matrix{
     }
 
     static ProductMultiply(a, b){
-        if(!(a instanceof Matrix)) return (typeof(a) + " doesn't match argument for MatrixMultiply(Matrix) function.");
-        if(!(b instanceof Matrix)) return (typeof(b) + " doesn't match argument for MatrixMultiply(Matrix) function.");
-        if(a.rows != b.cols) return ("Rows count and colums count of Matrixes must be the same in MatrixMutiply.");
+        if(!(a instanceof Matrix)) return (typeof(a) + " doesn't match argument for ProductMultiply(Matrix) function.");
+        if(!(b instanceof Matrix)) return (typeof(b) + " doesn't match argument for ProductMultiply(Matrix) function.");
+        if(a.cols !== b.rows) return ("Rows count and colums count of Matrixes must be the same in MatrixMutiply.");
 
         let result = new Matrix(a.rows, b.cols);
 
         for (let i = 0; i < result.rows; i ++){
             for (let j = 0; j < result.cols; j ++){
                 let sum = 0;
-                for(let k = 0; k < n.rows; k ++){
+                for(let k = 0; k < b.rows; k ++){
                     sum += a.matrix[i][k] * b.matrix[k][j];
                 }
                 result.matrix[i][j] = sum;
@@ -172,7 +172,7 @@ class Matrix{
         this.AssignNewMatrix(result);
     }
 
-    Transpose(a){
+    static Transpose(a){
         let result = new Matrix(a.cols, a.rows);
         for(let i = 0; i < a.rows; i ++){
             for(let j = 0 ; j < a.cols; j ++){
@@ -195,5 +195,9 @@ class Matrix{
     Map(func){
         let result = Matrix.Map(this, func);
         this.AssignNewMatrix(result);
+    }
+
+    log(){
+        console.table(this.matrix);
     }
 }
