@@ -10,3 +10,12 @@ console.table(b.matrix);
 a.Add(2);
 
 console.table(a.matrix);
+
+c = Matrix.Map(a, DoubleIt);
+
+
+function DoubleIt(a){
+    return(a*2);
+}
+
+console.table(c.matrix);

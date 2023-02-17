@@ -181,4 +181,19 @@ class Matrix{
         }
         return result;
     }
+
+
+    static Map(a, func){
+        for(let i = 0; i < a.rows; i ++){
+            for(let j = 0 ; j < a.cols; j ++){
+                a.matrix[i][j] = func(a.matrix[i][j]);
+            }
+        }
+        return a;
+    }
+
+    Map(func){
+        let result = Matrix.Map(this, func);
+        this.AssignNewMatrix(result);
+    }
 }
