@@ -18,7 +18,7 @@ function setup(){
     // predict first color
     predictColor();
 
-    createCanvas(.65 * window.innerWidth + Math.pow(2500/window.innerWidth, 3), .45 * window.innerHeight);
+    createCanvas(.65 * window.innerWidth, .45 * window.innerHeight);
     generateNewColor();
 }
 
@@ -52,7 +52,8 @@ function genericFunc(){
 }
 
 function addColorTexts(){
-    textSize(64);
+    if (width > 370) textSize(64);
+    else textSize(16);
     noStroke();
     fill(0);
     // also we need to place it in center keeping in mind column in middle
@@ -60,7 +61,7 @@ function addColorTexts(){
     textAlign(CENTER);
     text("black", (width - 50)/4, 150)
     fill(255);
-    text("white", 3*(width)/4 + 50/4 , 150)
+    text("white", 3*(width)/4 + 50/4 , 150);
 }
 
 function predictColor(){

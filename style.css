@@ -2,7 +2,10 @@
 
 body{
     background-color: rgb(12,17,22);
-    align-content: center;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 h1{
