@@ -2,6 +2,7 @@
 
 body{
     background-color: rgb(12,17,22);
+    align-content: center;
 }
 
 h1{
@@ -14,8 +15,18 @@ h2 {
     font-family: 'Open Sans', sans-serif;
     color: aliceblue;
     text-align: center;
+    padding-bottom: 15vh;
 }
 
 button{
     border: none;
+}
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
 }
