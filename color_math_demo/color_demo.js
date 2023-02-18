@@ -56,9 +56,9 @@ function addColorTexts(){
     noStroke();
     fill(0);
     textAlign(CENTER);
-    text("black", width/2 - 150, 150)
+    text("black", width/4 , 150)
     fill(255);
-    text("white", width/2 + 150, 150)
+    text("white", 3*width/4 , 150)
 }
 
 function predictColor(){
