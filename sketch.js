@@ -21,28 +21,29 @@ let data_set = [
 
 let brain;
 let training_per_step = 25000;
+let output = 0;
+
+const xPos = 100;
+const yPos = 300;
+
+
+const colors = [
+    "red",
+    "green"
+];
 
 function setup(){
     brain = new NeuralNetwork(2, 2, 1);
-    button = createButton("CHECK");
-    button.position(window.innerWidth/2 - button.width/2, 400)
-    
-    xInput = createInput();
-    xInput.position(window.innerWidth/2 - 1.5 * xInput.width, button.height + 400);
 
-    xText = createElement('h2', 'X');
-    xText.position(window.innerWidth/2 - .75 * xInput.width, 400 - xText.height);
+    xButton = createInputButton();
+    xButton.button.mouseClicked(changeXValue);
+    xButton.button.position(xPos, yPos);
 
-    yInput = createInput();
-    yInput.position(window.innerWidth/2 + yInput.width/2, button.height + 400);
+    yButton = createInputButton();
+    yButton.button.mouseClicked(changeYValue);
+    yButton.button.position(xPos, yPos + xButton.button.height + 100);
 
-    yText = createElement('h2', 'Y');
-    yText.position(window.innerWidth/2 + .75 * yInput.width, 400 - yText.height);
-
-    output = createElement('h2', 'Unfixed output');
-    f_output = createElement('h2', 'Fixed output');
-
-    button.mouseClicked(check);
+    createCanvas(window.innerWidth - 300, window.innerHeight - 300); 
 }
 
 function draw(){
@@ -50,19 +51,45 @@ function draw(){
         data = random(data_set);
         brain.Train(data.inputs, data.targets);
     }
+
+    background(12, 17, 22)
+    // draw output
+    let c = color(colors[Math.round(output)]);
+    fill(c);
+    textSize(32);
+    const x = xPos + 500;
+    const y = (2 * yPos + xButton.button.height + 100)/2 - 100;
+
+    text("Fixed output " + Math.round(output), xPos, yPos) ;
+    text("Raw output " + output, xPos, yPos + 200) ;
 }
 
-function check(){
-    const x = xInput.value();
-    const y = yInput.value();
+function createInputButton(){
+    let newButton = {
+        button: createButton(""),
+        value: 0
+    }
+    newButton.button.size(100,100);
+    changeButtonColor(newButton);
 
-    xInput.value('');
-    yInput.value('');
+    return newButton;
+}
 
-    if(x > 1 || y > 1 || x < 0 || y < 0) console.log("Invalid input");
+function changeButtonColor(button){
+    button.button.style("background-color", colors[button.value]);
+}
 
-    let answer = brain.Feedforward([x, y])
-    output.html("Unfixed output " + answer);
-    f_output.html("Fixed output " + Math.round(answer[0]))
-    console.log(answer)
+function changeXValue () {
+    changeValue(xButton);
+}
+
+function changeYValue(){
+    changeValue(yButton);
+}
+
+function changeValue(button){
+    button.value = button.value == 0 ? 1 : 0;
+    // make new guess
+    output = brain.Feedforward([xButton.value, yButton.value]);
+    changeButtonColor(button);
 }
