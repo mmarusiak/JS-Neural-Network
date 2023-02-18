@@ -31,7 +31,7 @@ function mousePressed(){
 
 function userChoice(choice){
     let output = choice == "w" ? [0, 1] : [1, 0];
-    brain.Train([r, g, b], output); 
+    if(Math.round(guess[0]) != output[0]) brain.Train([r, g, b], output); // train only if brain didn't predict correct
 }
 
 function generateNewColor(){
